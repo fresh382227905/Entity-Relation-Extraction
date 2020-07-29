@@ -58,6 +58,13 @@ There is no longer a raw data download, if you have any questions, you can conta
 ## 训练阶段
 
 ### 准备关系分类数据
+## 
+注意！官方提供的测试数据集 test1_data_postag.json 没有提供标签，所以只能提交给官方评测。
+如果要自行评测模型效果：需要将bin/predicate_classifiction/predicate_data_manager.py中的competition_Model=False
+```
+predicate_data_manager.py set: Competition_Mode = False
+```
+再运行代码
 ```
 python bin/predicate_classifiction/predicate_data_manager.py
 ```
@@ -115,7 +122,9 @@ python run_predicate_classification.py \
   --max_seq_length=128 \
   --output_dir=./output/predicate_infer_out/epochs6/ckpt27000
 ```
-
+```
+模型可以根据需求更改
+```
 ### 把关系分类模型预测结果转换成序列标注模型的预测输入
 ```
 python bin/predicate_classifiction/prepare_data_for_labeling_infer.py
@@ -133,21 +142,19 @@ python run_sequnce_labeling.py \
   --max_seq_length=128 \
   --output_dir=./output/sequnce_infer_out/epochs9/ckpt22000
 ```
-
+```
+模型可以根据需求更改
+```
 ### 生成实体-关系结果
 ```
 python produce_submit_json_file.py
 ```
 
 ## 评估阶段
-注意！官方提供的测试数据集 test1_data_postag.json 没有提供标签，所以只能提交给官方评测。
-如果要自行评测模型效果：
+运行：```bin/evaluation``` 中的评测文件
 ```
-predicate_data_manager.py set: Competition_Mode = False
+python bin/evaluation/evaluate_labeling.py
 ```
-然后运行：```bin/evaluation``` 中的评测文件
-
-
 ### 提交给官方评测的部分实验结果
 
 |分类模型|序列标注模型|准确率|召回率|F1值|
